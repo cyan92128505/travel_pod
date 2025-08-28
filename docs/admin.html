@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理後台 - [公司名]移民護照代辦</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: #f5f6fa;
+            color: #333;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1e3c72, #2a5298);
+            color: white;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .sidebar-menu li {
+            margin: 0.5rem 0;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-right: 3px solid #ff6b35;
+        }
+
+        .sidebar-menu i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #1e3c72;
+            font-size: 1.5rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-badge {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-badge::after {
+            content: '3';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .stat-icon.orders {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .stat-icon.members {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .stat-icon.revenue {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .stat-icon.pending {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+
+        .stat-content h3 {
+            font-size: 1.8rem;
+            color: #1e3c72;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 0 2rem 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #1e3c72;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2a5298;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        /* Table */
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-filters {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-select,
+        .search-input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .search-input {
+            width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-completed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .service-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding: 2rem;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: #1e3c72;
+                cursor: pointer;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .content-section {
+                padding: 0 1rem 1rem;
+            }
+
+            .table-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .table-filters {
+                flex-wrap: wrap;
+            }
+
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            th,
+            td {
+                padding: 0.5rem;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .form-control:focus {
+            border-color: #1e3c72;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(30, 60, 114, 0.1);
+        }
+
+        textarea.form-control {
+            height: 80px;
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>管理後台</h3>
+            <p>[公司名]移民護照代辦</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#dashboard" class="active" onclick="showSection('dashboard')"><i>📊</i>總覽儀表板</a></li>
+            <li><a href="#orders" onclick="showSection('orders')"><i>📋</i>訂單管理</a></li>
+            <li><a href="#members" onclick="showSection('members')"><i>👥</i>會員管理</a></li>
+            <li><a href="#documents" onclick="showSection('documents')"><i>📁</i>文件管理</a></li>
+            <li><a href="#reports" onclick="showSection('reports')"><i>📈</i>統計報表</a></li>
+            <li><a href="#notifications" onclick="showSection('notifications')"><i>🔔</i>通知管理</a></li>
+            <li><a href="#settings" onclick="showSection('settings')"><i>⚙️</i>系統設定</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+                <h1 id="page-title">總覽儀表板</h1>
+            </div>
+            <div class="header-right">
+                <div class="notification-badge">🔔</div>
+                <div class="user-profile">
+                    <div class="avatar">管</div>
+                    <span>管理員</span>
+                    <span>▼</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" class="section">
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon orders">📋</div>
+                    <div class="stat-content">
+                        <h3>45</h3>
+                        <p>本月新訂單</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon members">👥</div>
+                    <div class="stat-content">
+                        <h3>128</h3>
+                        <p>註冊會員</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon revenue">💰</div>
+                    <div class="stat-content">
+                        <h3>NT$ 125,000</h3>
+                        <p>本月營收</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pending">⏳</div>
+                    <div class="stat-content">
+                        <h3>12</h3>
+                        <p>待處理訂單</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-card">
+                    <h3>月收入趨勢</h3>
+                    <div class="chart-placeholder">📊 收入趨勢圖表將顯示在此處</div>
+                </div>
+                <div class="chart-card">
+                    <h3>服務類型分布</h3>
+                    <div class="chart-placeholder">🥧 服務類型圓餅圖將顯示在此處</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div id="orders-section" class="section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">訂單管理</h2>
+                    <button class="btn btn-primary" onclick="openModal('orderModal')">
+                        <span>+</span> 新增訂單
+                    </button>
+                </div>
+
+                <div class="data-table">
+                    <div class="table-header">
+                        <h4>所有訂單</h4>
+                        <div class="table-filters">
+                            <select class="filter-select">
+                                <option>所有狀態</option>
+                                <option>待處理</option>
+                                <option>處理中</option>
+                                <option>已完成</option>
+                                <option>已取消</option>
+                            </select>
+                            <select class="filter-select">
+                                <option>所有服務</option>
+                                <option>越南移民</option>
+                                <option>護照代辦</option>
+                            </select>
+                            <input type="text" class="search-input" placeholder="搜尋客戶姓名或訂單編號">
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>訂單編號</th>
+                                <th>客戶姓名</th>
+                                <th>服務類型</th>
+                                <th>申請日期</th>
+                                <th>狀態</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>#ORD001</strong></td>
+                                <td>張小明</td>
+                                <td><span class="service-type">🇻🇳 越南移民</span></td>
+                                <td>2025-08-25</td>
+                                <td><span class="status-badge status-processing">處理中</span></td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" onclick="viewOrder('ORD001')">查看</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="updateStatus('ORD001')">更新狀態</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#ORD002</strong></td>
+                                <td>李小華</td>
+                                <td><span class="service-type">🇹🇼 護照代辦</span></td>
+                                <td>2025-08-24</td>
+                                <td><span class="status-badge status-pending">待處理</span></td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" onclick="viewOrder('ORD002')">查看</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="updateStatus('ORD002')">更新狀態</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#ORD003</strong></td>
+                                <td>王大同</td>
+                                <td><span class="service-type">🇹🇼 護照代辦</span></td>
+                                <td>2025-08-23</td>
+                                <td><span class="status-badge status-completed">已完成</span></td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" onclick="viewOrder('ORD003')">查看</button>
+                                    <button class="btn btn-warning btn-sm">下載收據</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#ORD004</strong></td>
+                                <td>陳美玲</td>
+                                <td><span class="service-type">🇻🇳 越南移民</span></td>
+                                <td>2025-08-22</td>
+                                <td><span class="status-badge status-processing">處理中</span></td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" onclick="viewOrder('ORD004')">查看</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="updateStatus('ORD004')">更新狀態</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Members Section -->
+        <div id="members-section" class="section" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">會員管理</h2>
+                    <button class="btn btn-primary">匯出會員清單</button>
+                </div>
+
+                <div class="data-table">
+                    <div class="table-header">
+                        <h4>註冊會員 (128)</h4>
+                        <div class="table-filters">
+                            <select class="filter-select">
+                                <option>所有會員</option>
+                                <option>一般會員</option>
+                                <option>VIP 會員</option>
+                            </select>
+                            <input type="text" class="search-input" placeholder="搜尋會員姓名或電子信箱">
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>會員編號</th>
+                                <th>姓名</th>
+                                <th>電子信箱</th>
+                                <th>註冊日期</th>
+                                <th>訂單數量</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>#M001</strong></td>
+                                <td>張小明</td>
+                                <td>zhang@email.com</td>
+                                <td>2025-07-15</td>
+                                <td>2</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm">查看詳情</button>
+                                    <button class="btn btn-success btn-sm">發送訊息</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#M002</strong></td>
+                                <td>李小華</td>
+                                <td>li@email.com</td>
+                                <td>2025-08-01</td>
+                                <td>1</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm">查看詳情</button>
+                                    <button class="btn btn-success btn-sm">發送訊息</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#M003</strong></td>
+                                <td>王大同</td>
+                                <td>wang@email.com</td>
+                                <td>2025-06-20</td>
+                                <td>3</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm">查看詳情</button>
+                                    <button class="btn btn-success btn-sm">發送訊息</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other sections placeholder -->
+        <div id="documents-section" class="section" style="display: none;">
+            <div class="content-section">
+                <h2 class="section-title">文件管理</h2>
+                <p style="text-align: center; margin: 3rem 0; color: #6c757d;">📁 文件管理功能將在此處顯示</p>
+            </div>
+        </div>
+
+        <div id="reports-section" class="section" style="display: none;">
+            <div class="content-section">
+                <h2 class="section-title">統計報表</h2>
+                <p style="text-align: center; margin: 3rem 0; color: #6c757d;">📈 統計報表功能將在此處顯示</p>
+            </div>
+        </div>
+
+        <div id="notifications-section" class="section" style="display: none;">
+            <div class="content-section">
+                <h2 class="section-title">通知管理</h2>
+                <p style="text-align: center; margin: 3rem 0; color: #6c757d;">🔔 通知管理功能將在此處顯示</p>
+            </div>
+        </div>
+
+        <div id="settings-section" class="section" style="display: none;">
+            <div class="content-section">
+                <h2 class="section-title">系統設定</h2>
+                <p style="text-align: center; margin: 3rem 0; color: #6c757d;">⚙️ 系統設定功能將在此處顯示</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>訂單詳情 - #ORD001</h3>
+                <button class="close" onclick="closeModal('orderModal')">&times;</button>
+            </div>
+
+            <div class="form-group">
+                <label>客戶姓名</label>
+                <input type="text" class="form-control" value="張小明" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>服務類型</label>
+                <input type="text" class="form-control" value="越南移民台灣服務" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>申請日期</label>
+                <input type="text" class="form-control" value="2025-08-25" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>目前狀態</label>
+                <select class="form-control">
+                    <option>待處理</option>
+                    <option selected>處理中</option>
+                    <option>已完成</option>
+                    <option>已取消</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>處理備註</label>
+                <textarea class="form-control" placeholder="請輸入處理備註...">文件審核中，預計3-5個工作天完成</textarea>
+            </div>
+
+            <div class="form-group" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                <button class="btn btn-success">更新狀態</button>
+                <button class="btn btn-info">發送通知</button>
+                <button class="btn" style="background: #6c757d; color: white;"
+                    onclick="closeModal('orderModal')">關閉</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Show different sections
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+
+            // Show selected section
+            document.getElementById(section + '-section').style.display = 'block';
+
+            // Update active menu item
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`[onclick="showSection('${section}')"]`).classList.add('active');
+
+            // Update page title
+            const titles = {
+                'dashboard': '總覽儀表板',
+                'orders': '訂單管理',
+                'members': '會員管理',
+                'documents': '文件管理',
+                'reports': '統計報表',
+                'notifications': '通知管理',
+                'settings': '系統設定'
+            };
+            document.getElementById('page-title').textContent = titles[section];
+        }
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Order functions
+        function viewOrder(orderId) {
+            openModal('orderModal');
+        }
+
+        function updateStatus(orderId) {
+            alert(`更新訂單 ${orderId} 的狀態`);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+                    sidebar.classList.remove('open');
+                }
+            }
+        });
+
+        // Add hover effects to table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', function () {
+                // Remove previous selection
+                document.querySelectorAll('tbody tr').forEach(r => r.style.background = '');
+                // Highlight selected row
+                this.style.background = '#e3f2fd';
+            });
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const badge = document.querySelector('.notification-badge::after');
+            // This would normally update notification count from server
+        }, 30000);
+
+        // Filter functionality
+        document.querySelectorAll('.filter-select, .search-input').forEach(element => {
+            element.addEventListener('change', function () {
+                // This would normally filter the table data
+                console.log('Filter changed:', this.value);
+            });
+        });
+    </script>
+</body>
+
+</html>

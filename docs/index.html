@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[公司名]移民護照代辦 - 專業服務，值得信賴</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .login-btn {
+            background: #ff6b35;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        .login-btn:hover {
+            background: #e55a2b;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(42, 82, 152, 0.8)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f8ff" width="1200" height="600"/><path fill="%23e6f3ff" d="M0,300 Q300,200 600,300 T1200,300 L1200,600 L0,600 Z"/></svg>');
+            background-size: cover;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #1e3c72;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .service-features li {
+            padding: 0.3rem 0;
+            color: #666;
+        }
+
+        .service-features li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Member Portal Teaser */
+        .member-portal {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+        }
+
+        .portal-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portal-feature {
+            text-align: center;
+        }
+
+        .portal-feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e3c72;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ff6b35;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid #2a5298;
+            opacity: 0.8;
+        }
+
+        /* Modal for Login Demo */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            border-color: #1e3c72;
+            outline: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">[公司名]移民護照代辦</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">首頁</a></li>
+                    <li><a href="#services">服務項目</a></li>
+                    <li><a href="#process">申請流程</a></li>
+                    <li><a href="#about">關於我們</a></li>
+                    <li><a href="#contact">聯絡我們</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="login-btn" onclick="openModal()">會員登入</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>專業移民護照代辦服務</h1>
+            <p>20年經驗，值得信賴 | 一站式解決您的移民與護照需求</p>
+            <div class="cta-buttons">
+                <a href="#services" class="btn btn-primary">立即諮詢</a>
+                <a href="#" class="btn btn-secondary" onclick="openModal()">會員登入</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>我們的專業服務</h2>
+                <p>提供全方位的移民與護照代辦服務，讓您安心託付</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🇻🇳</div>
+                    <h3>越南移民台灣服務</h3>
+                    <p>專業協助越南籍人士申請來台定居、工作、投資移民等各項服務。</p>
+                    <ul class="service-features">
+                        <li>投資移民申請</li>
+                        <li>依親居留申請</li>
+                        <li>工作居留許可</li>
+                        <li>永久居留申請</li>
+                        <li>歸化中華民國國籍</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="margin-top: 1rem;">了解詳情</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🇹🇼</div>
+                    <h3>台灣護照代辦服務</h3>
+                    <p>快速、專業的護照申請與換發服務，讓您輕鬆出國無煩惱。</p>
+                    <ul class="service-features">
+                        <li>護照首次申請</li>
+                        <li>護照換發服務</li>
+                        <li>遺失補發</li>
+                        <li>加急處理</li>
+                        <li>代收代送服務</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="margin-top: 1rem;">了解詳情</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>簡單四步驟，輕鬆完成申請</h2>
+                <p>我們的專業團隊將全程協助您完成申請流程</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>線上諮詢</h3>
+                    <p>透過網站或電話進行免費諮詢，了解您的需求</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>文件準備</h3>
+                    <p>我們提供詳細清單，協助您準備所需文件</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>專業代辦</h3>
+                    <p>由專業團隊代為處理申請，定期回報進度</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>完成交付</h3>
+                    <p>申請完成後，安全快速地將文件交付給您</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Member Portal Teaser -->
+    <section class="member-portal">
+        <div class="container">
+            <h2>24小時線上會員服務</h2>
+            <p>註冊成為會員，享受更便利的服務體驗</p>
+
+            <div class="portal-features">
+                <div class="portal-feature">
+                    <div class="portal-feature-icon">📋</div>
+                    <h3>線上申請</h3>
+                    <p>24小時隨時提交申請表單</p>
+                </div>
+                <div class="portal-feature">
+                    <div class="portal-feature-icon">📊</div>
+                    <h3>即時查詢</h3>
+                    <p>隨時查看申請進度狀態</p>
+                </div>
+                <div class="portal-feature">
+                    <div class="portal-feature-icon">📁</div>
+                    <h3>文件管理</h3>
+                    <p>安全上傳及下載相關文件</p>
+                </div>
+                <div class="portal-feature">
+                    <div class="portal-feature-icon">🔔</div>
+                    <h3>進度通知</h3>
+                    <p>自動接收處理進度更新</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <a href="#" class="btn btn-secondary" onclick="openModal()">立即註冊</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>聯絡資訊</h3>
+                    <ul class="contact-info">
+                        <li>📞 電話：(02) 2345-6789</li>
+                        <li>📱 手機：0912-345-678</li>
+                        <li>📧 信箱：info@example.com</li>
+                        <li>📍 地址：台中市中區xxx路xxx號</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>營業時間</h3>
+                    <ul class="contact-info">
+                        <li>🕘 週一至週五：09:00-18:00</li>
+                        <li>🕘 週六：09:00-12:00</li>
+                        <li>🔒 週日：公休</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>快速連結</h3>
+                    <ul class="contact-info">
+                        <li><a href="#services" style="color: #ff6b35;">服務項目</a></li>
+                        <li><a href="#process" style="color: #ff6b35;">申請流程</a></li>
+                        <li><a href="#" style="color: #ff6b35;">常見問題</a></li>
+                        <li><a href="#" style="color: #ff6b35;">隱私權政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 [公司名]移民護照代辦. 版權所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="margin-bottom: 1rem; color: #1e3c72;">會員登入</h2>
+            <form>
+                <div class="form-group">
+                    <label for="email">電子信箱</label>
+                    <input type="email" id="email" placeholder="請輸入您的電子信箱">
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" placeholder="請輸入密碼">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">登入</button>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <p><a href="#" style="color: #1e3c72;">忘記密碼？</a></p>
+                    <p>還不是會員？<a href="#" style="color: #ff6b35; font-weight: bold;">立即註冊</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add some interaction feedback
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
+            });
+            card.addEventListener('mouseleave', function () {
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+        });
+    </script>
+</body>
+
+</html>
